@@ -182,6 +182,12 @@ export default function Profile() {
         >
           {loading ? "Загрузка..." : "Обновить"}
         </button>
+        <Link
+          className='bg-blue-500 text-white p-3 rounded-xl uppercase text-center hover:opacity-95'
+          to={'/create-listing'}
+        >
+          Создать объявление
+        </Link>
       </form>
       <div className="flex justify-between mt-5">
         <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Выйти</span>

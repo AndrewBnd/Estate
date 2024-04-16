@@ -1,4 +1,3 @@
-
 export default function Home() {
   return (
     <div>
@@ -13,6 +12,7 @@ export default function Home() {
           <br />
         </div>
       </div>
+      
     </div>
   );
 }
