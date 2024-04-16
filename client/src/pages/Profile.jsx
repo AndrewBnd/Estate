@@ -70,7 +70,7 @@ export default function Profile() {
               Ошибка загрузки (Изображение должно быть менее 2 мб)
             </span>
           ) : filePerc > 0 && filePerc < 100 ? (
-            <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
+            <span className='text-slate-700'>{`Загрузка ${filePerc}%`}</span>
           ) : filePerc === 100 ? (
             <span className='text-green-700'>Изображение успешно добавлено!</span>
           ) : (

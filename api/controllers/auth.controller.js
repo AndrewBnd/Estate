@@ -9,7 +9,7 @@ export const signup = async (req,res,next) => {
     const newUser = new User({ username, email, password: hashedPassword });
     try {
         await newUser.save();
-        res.status(201).json('User created successfully!');
+        res.status(201).json('Пользователь успешно зарегистрирован!');
       } catch (error) {
         next(error);
       }
@@ -19,9 +19,9 @@ export const signin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const validUser = await User.findOne({ email });
-    if (!validUser) return next(errorHandler(404, 'User not found!'));
+    if (!validUser) return next(errorHandler(404, 'Пользователь не найден!'));
     const validPassword = bcryptjs.compareSync(password, validUser.password);
-    if (!validPassword) return next(errorHandler(401, 'Wrong credentials!'));
+    if (!validPassword) return next(errorHandler(401, 'Неверные исходные данные!'));
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     const { password: pass, ...rest } = validUser._doc;
     res
