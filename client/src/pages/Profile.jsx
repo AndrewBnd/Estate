@@ -215,9 +215,9 @@ export default function Profile() {
         />
         <button
           disabled={loading}
-          className="border rounded-xl font-medium bg-gray-300 p-3 uppercase hover:opacity-95 disabled:opacity-80"
+          className="border-2 rounded-xl font-medium  p-3 uppercase hover:opacity-95 disabled:opacity-80"
         >
-          {loading ? "Загрузка..." : "Обновить"}
+          {loading ? "Загрузка..." : "Обновить профиль"}
         </button>
         <Link
           className="bg-blue-500 text-white p-3 rounded-xl uppercase text-center hover:opacity-95"
@@ -244,31 +244,31 @@ export default function Profile() {
           {userListings.map((listing) => (
             <div
               key={listing._id}
-              className="border rounded-xl p-5 flex justify-between items-center gap-4"
+              className="border rounded-xl  p-3 flex justify-between items-center gap-4"
             >
               <Link to={`/listing/${listing._id}`}>
                 <img
                   src={listing.imageUrls[0]}
                   alt="listing cover"
-                  className="h-16 w-16 object-contain"
+                  className="h-24 w-36 rounded-xl object-contain"
                 />
               </Link>
               <Link
-                className=" font-semibold  hover:underline truncate flex-1"
+                className=" font-semibold   hover:underline truncate flex-1"
                 to={`/listing/${listing._id}`}
               >
-                <p>{listing.name}</p>
+                <p className="text-sm text-slate-800 line-clamp-2">{listing.name}</p>
               </Link>
 
               <div className="flex flex-col item-center">
                 <button
                   onClick={() => handleListingDelete(listing._id)}
-                  className="text-red-700 uppercase"
+                  className="bg-slate-800 text-white border rounded-xl text-sm p-1 uppercase"
                 >
                   Удалить
                 </button>
                 <Link to={`/update-listing/${listing._id}`}>
-                  <button className="text-green-700 uppercase">
+                  <button className="bg-blue-500 text-white mt-3 text-sm border p-1 rounded-xl uppercase">
                     Редактировать
                   </button>
                 </Link>

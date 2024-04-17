@@ -383,7 +383,7 @@ export default function UpdateListing() {
               ))}
             <button
               disabled={loading || uploading}
-              className="p-3 bg-blue-500 text-white rounded-xl uppercase hover:opacity-95 disabled:opacity-80"
+              className="p-3 bg-slate-800 text-white rounded-xl uppercase hover:opacity-95 disabled:opacity-80"
             >
               {loading ? "Загрузка..." : "Редактировать"}
             </button>
