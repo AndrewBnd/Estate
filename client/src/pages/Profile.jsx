@@ -18,7 +18,7 @@ import {
   signOutUserFailure,
   signOutUserSuccess,
 } from "../redux/user/userSlice";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
@@ -29,6 +29,8 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [showListingsError, setShowListingsError] = useState(false);
+  const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -70,9 +72,9 @@ export default function Profile() {
     try {
       dispatch(updateUserStart());
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
@@ -93,7 +95,7 @@ export default function Profile() {
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/user/delete/${currentUser._id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       const data = await res.json();
       if (data.success === false) {
@@ -109,7 +111,7 @@ export default function Profile() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart());
-      const res = await fetch('/api/auth/signout');
+      const res = await fetch("/api/auth/signout");
       const data = await res.json();
       if (data.success === false) {
         dispatch(signOutUserFailure(data.message));
@@ -121,8 +123,43 @@ export default function Profile() {
     }
   };
 
+  const handleShowListings = async () => {
+    try {
+      setShowListingsError(false);
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const data = await res.json();
+      if (data.success === false) {
+        setShowListingsError(true);
+        return;
+      }
+
+      setUserListings(data);
+    } catch (error) {
+      setShowListingsError(true);
+    }
+  };
+
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="p-3 max-w-lg flex flex-col justify-center mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Профиль</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
@@ -183,19 +220,77 @@ export default function Profile() {
           {loading ? "Загрузка..." : "Обновить"}
         </button>
         <Link
-          className='bg-blue-500 text-white p-3 rounded-xl uppercase text-center hover:opacity-95'
-          to={'/create-listing'}
+          className="bg-blue-500 text-white p-3 rounded-xl uppercase text-center hover:opacity-95"
+          to={"/create-listing"}
         >
           Создать объявление
         </Link>
       </form>
-      <div className="flex justify-between mt-5">
-        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Выйти</span>
-        <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer">Удалить аккаунт</span>
-      </div>
-      <p className='text-green-700 mt-5 text-center'>
-        {updateSuccess ? 'Данные пользователя обновлены!' : ''}
+      <button
+        onClick={handleShowListings}
+        className="bg-blue-500 text-white p-3 mt-4  rounded-xl uppercase text-center hover:opacity-95 "
+      >
+        Активные объявления
+      </button>
+
+      <p className="text-green-700 mt-5 text-center">
+        {updateSuccess ? "Данные пользователя обновлены!" : ""}
       </p>
+      {userListings && userListings.length > 0 && (
+        <div className="flex flex-col gap-4">
+          <h1 className="text-center mt-7 mb-3 text-3xl font-semibold">
+            Мои объявления
+          </h1>
+          {userListings.map((listing) => (
+            <div
+              key={listing._id}
+              className="border rounded-xl p-5 flex justify-between items-center gap-4"
+            >
+              <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt="listing cover"
+                  className="h-16 w-16 object-contain"
+                />
+              </Link>
+              <Link
+                className=" font-semibold  hover:underline truncate flex-1"
+                to={`/listing/${listing._id}`}
+              >
+                <p>{listing.name}</p>
+              </Link>
+
+              <div className="flex flex-col item-center">
+                <button
+                  onClick={() => handleListingDelete(listing._id)}
+                  className="text-red-700 uppercase"
+                >
+                  Удалить
+                </button>
+                <Link to={`/update-listing/${listing._id}`}>
+                  <button className="text-green-700 uppercase">
+                    Редактировать
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      <p className="text-red-700 mt-5">
+        {showListingsError ? "Ошибка в загрузке объявлений" : ""}
+      </p>
+      <div className="flex justify-between mt-3 mb-6">
+        <span onClick={handleSignOut} className="text-red-700 cursor-pointer">
+          Выйти
+        </span>
+        <span
+          onClick={handleDeleteUser}
+          className="text-red-700 cursor-pointer"
+        >
+          Удалить аккаунт
+        </span>
+      </div>
     </div>
   );
 }
