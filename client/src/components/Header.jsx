@@ -22,7 +22,7 @@ export default function Header() {
             <FaSearch />
           </button>
         </form>
-        <ul className="flex gap-6">
+        <ul className="flex items-center gap-6">
           <Link to="/about">
             <li className="hidden sm:inline hover:underline text-lg">О нас</li>
           </Link>
