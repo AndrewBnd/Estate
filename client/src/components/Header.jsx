@@ -27,7 +27,7 @@ export default function Header() {
     <header>
       <div className="flex justify-between items-center max-w-6xl mx-auto p-5">
         <Link to="/">
-          <h1 className="font-bold text-3xl flex">
+          <h1 className="font-bold text-base sm:text-3xl flex">
             <span>BestEstate</span>
           </h1>
         </Link>
@@ -53,12 +53,12 @@ export default function Header() {
           <Link to="/profile">
             {currentUser ? (
               <img
-                className="rounded-full h-10 w-10 object-cover"
+                className="rounded-full h-6 sm:h_10 w-6 sm:w-10 object-cover"
                 src={currentUser.avatar}
                 alt="profile"
               />
             ) : (
-              <li className="text-xl hover:underline"> Войти</li>
+              <li className="text-base sm:text-xl hover:underline"> Войти</li>
             )}
           </Link>
         </ul>
