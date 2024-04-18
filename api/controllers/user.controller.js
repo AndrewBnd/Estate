@@ -11,7 +11,7 @@ export const test = (req, res) => {
 
   export const updateUser = async (req, res, next) => {
     if (req.user.id !== req.params.id)
-      return next(errorHandler(401, 'You can only update your own account!'));
+      return next(errorHandler(401, 'Вы можете обновить только свой аккаунт!'));
     try {
       if (req.body.password) {
         req.body.password = bcryptjs.hashSync(req.body.password, 10);
@@ -40,11 +40,11 @@ export const test = (req, res) => {
 
   export const deleteUser = async (req, res, next) => {
     if (req.user.id !== req.params.id)
-      return next(errorHandler(401, 'You can only delete your own account!'));
+      return next(errorHandler(401, 'Вы можете удалить только свой аккаунт!'));
     try {
       await User.findByIdAndDelete(req.params.id);
       res.clearCookie('access_token');
-      res.status(200).json('User has been deleted!');
+      res.status(200).json('Пользователь удален!');
     } catch (error) {
       next(error);
     }
@@ -59,7 +59,7 @@ export const test = (req, res) => {
         next(error);
       }
     } else {
-      return next(errorHandler(401, 'You can only view your own listings!'));
+      return next(errorHandler(401, 'Можно просмотреть только свои объявления!'));
     }
   };
 
@@ -68,7 +68,7 @@ export const test = (req, res) => {
       
       const user = await User.findById(req.params.id);
     
-      if (!user) return next(errorHandler(404, 'User not found!'));
+      if (!user) return next(errorHandler(404, 'Пользователь не найден!'));
     
       const { password: pass, ...rest } = user._doc;
     

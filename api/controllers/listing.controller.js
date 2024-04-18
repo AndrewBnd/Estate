@@ -54,7 +54,7 @@ export const createListing = async (req, res, next) => {
     try {
       const listing = await Listing.findById(req.params.id);
       if (!listing) {
-        return next(errorHandler(404, 'Listing not found!'));
+        return next(errorHandler(404, 'Объявление не найдено!'));
       }
       res.status(200).json(listing);
     } catch (error) {

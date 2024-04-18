@@ -25,9 +25,9 @@ export default function Header() {
 
   return (
     <header>
-      <div className="flex justify-between items-center max-w-6xl mx-auto p-4">
+      <div className="flex justify-between items-center max-w-6xl mx-auto p-5">
         <Link to="/">
-          <h1 className="font-bold text-2xl flex">
+          <h1 className="font-bold text-3xl flex">
             <span>BestEstate</span>
           </h1>
         </Link>
@@ -48,17 +48,17 @@ export default function Header() {
         </form>
         <ul className="flex items-center gap-6">
           <Link to="/about">
-            <li className="hidden sm:inline hover:underline text-lg">О нас</li>
+            <li className="hidden sm:inline hover:underline text-xl">О нас</li>
           </Link>
           <Link to="/profile">
             {currentUser ? (
               <img
-                className="rounded-full h-7 w-7 object-cover"
+                className="rounded-full h-10 w-10 object-cover"
                 src={currentUser.avatar}
                 alt="profile"
               />
             ) : (
-              <li className=" hover:underline"> Войти</li>
+              <li className="text-xl hover:underline"> Войти</li>
             )}
           </Link>
         </ul>
