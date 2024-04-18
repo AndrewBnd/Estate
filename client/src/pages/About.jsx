@@ -8,7 +8,7 @@ export default function About() {
       <img
       className="h-72 w-2/5 rounded-xl object-cover object-center"
       src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJm0ep2XnY1hTuKtavEkI-pgnDTESIyCgaaJghzSe0tj_nYjZ4gxXSpu_dvQ3_FjqUbjj2zpiowxhMFxDO9xULKcitFENvdgHQxBO3Lek8a5v4oLN8spywI2-lyUtyVUJruQc4vN1IILHwOxBj8bHWhA0o-SJBP-IbZ8bSBttHJzGMjKvbIkUHF1G1fg/s2784/Rangiora%20real%20estate%201.jpg"
-      alt="nature image"
+      alt="real estate image"
     />
       <p className=" p-8 text-sm sm:text-xl text-slate-800">
         Агентство недвижимости, которое специализируется на помощи клиентам в
@@ -28,14 +28,14 @@ export default function About() {
       <img
       className="h-72 w-2/5 rounded-xl object-cover object-center"
       src="https://msk.kprf.ru/wp-content/uploads/2022/03/71066_1.jpg"
-      alt="nature image"
+      alt="real estate image"
     />
       </section>
       <section className="flex text-center items-center">
       <img
       className="h-72 w-2/5 rounded-xl object-cover object-center"
       src="https://s0.rbk.ru/v6_top_pics/media/img/3/47/756577467560473.jpg"
-      alt="nature image"
+      alt="real estate image"
     />
       <p className=" p-10 text-sm sm:text-xl text-slate-800">
         Наша команда агентов имеет богатый опыт и знания в сфере недвижимости, и
